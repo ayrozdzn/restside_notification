@@ -11,5 +11,6 @@ export const config = {
     webhook: {
         host: process.env.WEBHOOK_HOST || 'http://host.docker.internal',
         port: parseInt(process.env.WEBHOOK_PORT || '5353')
-    }
+    },
+    callbackUrl: process.env.CALLBACK_URL || 'http://host.docker.internal:5173/api/notifications',
 };

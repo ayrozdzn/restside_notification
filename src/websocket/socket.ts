@@ -3,7 +3,7 @@ import { ConnexionService } from '../services/connexion.service';
 import axios from 'axios';
 import { Connexion } from '../types/connexion.types';
 import { Simulation } from '../types/simulation.types';
-import { WebhookParameters } from '../types/webhook.types';
+import { WebhookParameters, WebhookRegistration } from '../types/webhook.types';
 import { SimulationService } from '../services/simulation.service';
 import { config } from '../config/config';
 
@@ -26,9 +26,14 @@ export class WebSocketServer {
 
     private initialize = (): void => {
         this.io.on('connection', (socket) => {
-            socket.on('register', async (data: WebhookParameters) => {
+            socket.on('register', async (parameters: WebhookParameters) => {
 
-                const response = await axios.post(`${config.webhook.host}:${config.webhook.port}/api/webhook/subscribe`, data);
+                const webhookRegistration: WebhookRegistration = {
+                    callbackUrl: config.callbackUrl,
+                    parameters: parameters
+                }
+
+                const response = await axios.post(`${config.webhook.host}:${config.webhook.port}/api/webhook/subscribe`, webhookRegistration);
 
                 const connexion: Connexion = {
                     id: response.data.id,
@@ -41,7 +46,7 @@ export class WebSocketServer {
                     id: response.data.id,
                     socket: socket,
                     secret: response.data.secret,
-                    parameters: data,
+                    parameters: parameters,
                     startDateTime: new Date(),
                     lastPauseDateTime: null,
                     isPlaying: true,
