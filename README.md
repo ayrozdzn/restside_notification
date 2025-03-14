@@ -14,7 +14,7 @@ Enregistre un nouveau webhook pour recevoir les notifications.
     simulatedStartDateTime: Date;
     simulatedDurationMinutes: number;
     realDurationSeconds: number;
-    seed: number | null;
+    seed: string | null;
 }
 ```
 **Réponse :** `registerResponse`

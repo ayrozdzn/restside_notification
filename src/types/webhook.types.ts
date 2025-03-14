@@ -3,7 +3,7 @@ export interface WebhookParameters {
     simulatedStartDateTime: Date;
     simulatedDurationMinutes: number;
     realDurationSeconds: number;
-    seed: number | null;
+    seed: string | null;
 }
 
 export interface WebhookRegistration {
