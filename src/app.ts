@@ -10,6 +10,9 @@ import { ValidationMiddleware } from './middlewares/validation.middleware';
 import { WebSocketServer } from './websocket/socket';
 import { apiRoutes } from './routes/api.routes';
 import { SimulationService } from './services/simulation.service';
+
+console.log(config);
+
 // Création des instances
 const app = express();
 const server = createServer(app);
